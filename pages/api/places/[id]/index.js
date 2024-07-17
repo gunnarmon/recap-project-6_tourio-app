@@ -28,4 +28,15 @@ export default async function handler(request, response) {
         .json("Error: could not update", { error: error.message });
     }
   }
+
+  if (request.method === "DELETE") {
+    try {
+      await Places.findByIdAndDelete(id);
+      response.status(200).json({ message: "deleted successfully!" });
+    } catch (error) {
+      response
+        .status(400)
+        .json("Error: could not delete", { message: error.message });
+    }
+  }
 }
